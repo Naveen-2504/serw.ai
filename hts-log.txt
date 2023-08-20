@@ -1,0 +1,28 @@
+HTTrack3.49-2+htsswf+htsjava launched on Sun, 20 Aug 2023 13:04:00 at https://theme.dsngrid.com/blackdsn/dark/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://theme.dsngrid.com/blackdsn/dark/ -O1 "G:\Music\ai" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+13:06:10	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/work-col-3.html (from https://theme.dsngrid.com/blackdsn/dark/)
+13:06:10	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/home.html (from https://theme.dsngrid.com/blackdsn/dark/)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/about.html (from https://theme.dsngrid.com/blackdsn/dark/personal.html)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/work-card-5.html (from https://theme.dsngrid.com/blackdsn/dark/photographer.html)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/single.html (from https://theme.dsngrid.com/blackdsn/dark/stories.html)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-brands-400.eot (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-brands-400.eot? (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-brands-400.ttf (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-brands-400.svg (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-regular-400.eot (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-regular-400.eot? (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-regular-400.ttf (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-regular-400.svg (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-solid-900.eot (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-solid-900.eot? (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:36	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-solid-900.ttf (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+13:06:37	Error: 	"Not Found" (404) at link https://theme.dsngrid.com/blackdsn/dark/assets/fonts/fa-solid-900.svg (from https://theme.dsngrid.com/blackdsn/dark/assets/css/plugins/fontawesome-all.min.css)
+
+HTTrack Website Copier/3.49-2 mirror complete in 2 minutes 37 seconds : 196 links scanned, 178 files written (22441905 bytes overall) [17881157 bytes received at 113892 bytes/sec], 5803534 bytes transferred using HTTP compression in 66 files, ratio 19%, 4.9 requests per connection
+(17 errors, 0 warnings, 0 messages)
