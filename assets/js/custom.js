@@ -3,20 +3,20 @@
 const dsnParam = {
   map: {
     marker_icon: "assets/img/map-marker.png",
-    api: "AIzaSyDMyAS2jdzj-vdgBIFaIStYOWJtSlghndg"
+    api: "AIzaSyDMyAS2jdzj-vdgBIFaIStYOWJtSlghndg",
   },
   cursor: {
     run: true,
     speed: 0.35,
-    speedInner: 0.15
+    speedInner: 0.15,
   },
   scrollbar: {
     duration: 1.5,
     smooth: false,
     smoothTouch: false,
-    mouseMultiplier: 1
+    mouseMultiplier: 1,
   },
-  name: "BLACKDSN"
+  name: "serw.ai",
 };
 
 (function ($) {
@@ -34,15 +34,15 @@ const dsnParam = {
     await $('.hidden[data-dsn="bg_section"]').each(function () {
       $(this).next().append($(this));
       $(this).css({
-        zIndex: -1
+        zIndex: -1,
       });
-      $(this).removeClass('hidden');
+      $(this).removeClass("hidden");
     });
     imgPosition();
     gridGaps();
     await $effectScroll.start();
     await $animate.allInt();
-    await loadLazyImage($el, ['bg', 'src']);
+    await loadLazyImage($el, ["bg", "src"]);
     await sliderPortfolio();
     await fancyBox();
     await justifiedGallery($el);
@@ -57,8 +57,10 @@ const dsnParam = {
     await Headline($el);
     await tabs($el);
     await contactValidator();
-    if (!$off) await Isotope($el);else setTimeout(Isotope, 500);
-    if (!$body.hasClass('elementor-editor-active')) dsnAjax() && (await dsnAjax().start());
+    if (!$off) await Isotope($el);
+    else setTimeout(Isotope, 500);
+    if (!$body.hasClass("elementor-editor-active"))
+      dsnAjax() && (await dsnAjax().start());
     await list_project($el);
     await inputNumber($el);
     await mouseCirMove($off);
@@ -66,7 +68,16 @@ const dsnParam = {
 
   function imgPosition() {
     $("[data-dsn-position]").each(function () {
-      if (this.nodeName === "IMG") $(this).css("object-position", dsnGrid.getData(this, "position", "center"));else $(this).css("background-position", dsnGrid.getData(this, "position", "center"));
+      if (this.nodeName === "IMG")
+        $(this).css(
+          "object-position",
+          dsnGrid.getData(this, "position", "center")
+        );
+      else
+        $(this).css(
+          "background-position",
+          dsnGrid.getData(this, "position", "center")
+        );
     });
   }
 
@@ -77,7 +88,7 @@ const dsnParam = {
       this.style.gridGap = gap;
       this.style.setProperty("--grid-gap", gap);
 
-      if (this.classList.contains('dsn-isotope')) {
+      if (this.classList.contains("dsn-isotope")) {
         if (split.length > 1) {
           this.style.setProperty("--grid-gap-row", split[0]);
           this.style.setProperty("--grid-gap-col", split[1]);
@@ -90,7 +101,10 @@ const dsnParam = {
       }
     });
     $("[data-dsn-iconsize]").each(function () {
-      this.style.setProperty("--dsn-icon-size", dsnGrid.getData(this, "iconsize"));
+      this.style.setProperty(
+        "--dsn-icon-size",
+        dsnGrid.getData(this, "iconsize")
+      );
     });
   }
   /**
@@ -99,13 +113,16 @@ const dsnParam = {
    *
    */
 
-
   function tabs($el) {
     $el.find(".dsn-tabs").each(function () {
       const $this = $(this);
       $this.on("click", ".link-click", function () {
         $(this).addClass("active").siblings().removeClass("active");
-        $this.find("#" + $(this).attr("id") + "-content").fadeIn(1000).siblings().hide();
+        $this
+          .find("#" + $(this).attr("id") + "-content")
+          .fadeIn(1000)
+          .siblings()
+          .hide();
       });
       dsnGrid.killAjax(() => {
         $this.off("click", ".link-click");
@@ -115,26 +132,27 @@ const dsnParam = {
 
   function Headline($el) {
     if ($.isFunction($.fn.animatedHeadline)) {
-      $el.find('.ah-headline:not(.dsn-active-line)').animatedHeadline();
-      $el.find('.ah-headline').addClass('dsn-active-line');
+      $el.find(".ah-headline:not(.dsn-active-line)").animatedHeadline();
+      $el.find(".ah-headline").addClass("dsn-active-line");
     }
   }
 
   function accordion($el = $(document)) {
     $el.find(".dsn-accordion").each(function () {
       const $this = $(this),
-            acc_q = $this.find(".accordion__question");
+        acc_q = $this.find(".accordion__question");
       acc_q.on("click", function () {
         const content = $(this).next();
         $this.find(".accordion__answer").not(content).slideUp(400);
         acc_q.not(this).removeClass("expanded");
         $(this).toggleClass("expanded");
-        $this.find('.accordion__item').removeClass("active");
-        if ($(this).hasClass('expanded')) $(this).parents('.accordion__item').addClass("active");
+        $this.find(".accordion__item").removeClass("active");
+        if ($(this).hasClass("expanded"))
+          $(this).parents(".accordion__item").addClass("active");
         content.slideToggle(400);
       });
       dsnGrid.killAjax(function () {
-        acc_q.off('click');
+        acc_q.off("click");
       });
     });
   }
@@ -143,18 +161,18 @@ const dsnParam = {
    * @param $el
    */
 
-
   function initMap($el = $(document)) {
     const map_id = $el.find(".map-custom"),
-          mapScriptId = document.getElementById("map_api");
+      mapScriptId = document.getElementById("map_api");
     if (map_id.length <= 0) return; // Styles a map in night mode.
 
     if (mapScriptId === null) {
       const GOOGLE_MAP_KEY = dsnParam.map.api,
-            script = document.createElement("script");
+        script = document.createElement("script");
       script.type = "text/javascript";
       script.id = "map_api";
-      script.src = "https://maps.googleapis.com/maps/api/js?key=" + GOOGLE_MAP_KEY;
+      script.src =
+        "https://maps.googleapis.com/maps/api/js?key=" + GOOGLE_MAP_KEY;
       document.body.appendChild(script);
     }
 
@@ -162,138 +180,198 @@ const dsnParam = {
       try {
         map_id.each(function () {
           let map_att = $(this),
-              lat = dsnGrid.getData(this, "lat"),
-              leg = dsnGrid.getData(this, "len"),
-              zoom = dsnGrid.getData(this, "zoom");
+            lat = dsnGrid.getData(this, "lat"),
+            leg = dsnGrid.getData(this, "len"),
+            zoom = dsnGrid.getData(this, "zoom");
           const letLeng = new google.maps.LatLng(lat, leg),
-                map = new google.maps.Map(map_att.get(0), {
-            center: {
-              lat: lat,
-              lng: leg
-            },
-            mapTypeControl: false,
-            scrollwheel: false,
-            draggable: true,
-            streetViewControl: false,
-            navigationControl: false,
-            zoom: zoom,
-            styles: [{
-              "featureType": "water",
-              "elementType": "geometry",
-              "stylers": [{
-                "color": "#e9e9e9"
-              }, {
-                "lightness": 17
-              }]
-            }, {
-              "featureType": "landscape",
-              "elementType": "geometry",
-              "stylers": [{
-                "color": "#f5f5f5"
-              }, {
-                "lightness": 20
-              }]
-            }, {
-              "featureType": "road.highway",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#ffffff"
-              }, {
-                "lightness": 17
-              }]
-            }, {
-              "featureType": "road.highway",
-              "elementType": "geometry.stroke",
-              "stylers": [{
-                "color": "#ffffff"
-              }, {
-                "lightness": 29
-              }, {
-                "weight": 0.2
-              }]
-            }, {
-              "featureType": "road.arterial",
-              "elementType": "geometry",
-              "stylers": [{
-                "color": "#ffffff"
-              }, {
-                "lightness": 18
-              }]
-            }, {
-              "featureType": "road.local",
-              "elementType": "geometry",
-              "stylers": [{
-                "color": "#ffffff"
-              }, {
-                "lightness": 16
-              }]
-            }, {
-              "featureType": "poi",
-              "elementType": "geometry",
-              "stylers": [{
-                "color": "#f5f5f5"
-              }, {
-                "lightness": 21
-              }]
-            }, {
-              "featureType": "poi.park",
-              "elementType": "geometry",
-              "stylers": [{
-                "color": "#dedede"
-              }, {
-                "lightness": 21
-              }]
-            }, {
-              "elementType": "labels.text.stroke",
-              "stylers": [{
-                "visibility": "on"
-              }, {
-                "color": "#ffffff"
-              }, {
-                "lightness": 16
-              }]
-            }, {
-              "elementType": "labels.text.fill",
-              "stylers": [{
-                "saturation": 36
-              }, {
-                "color": "#333333"
-              }, {
-                "lightness": 40
-              }]
-            }, {
-              "elementType": "labels.icon",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "transit",
-              "elementType": "geometry",
-              "stylers": [{
-                "color": "#f2f2f2"
-              }, {
-                "lightness": 19
-              }]
-            }, {
-              "featureType": "administrative",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#fefefe"
-              }, {
-                "lightness": 20
-              }]
-            }, {
-              "featureType": "administrative",
-              "elementType": "geometry.stroke",
-              "stylers": [{
-                "color": "#fefefe"
-              }, {
-                "lightness": 17
-              }, {
-                "weight": 1.2
-              }]
-            }]
-          });
+            map = new google.maps.Map(map_att.get(0), {
+              center: {
+                lat: lat,
+                lng: leg,
+              },
+              mapTypeControl: false,
+              scrollwheel: false,
+              draggable: true,
+              streetViewControl: false,
+              navigationControl: false,
+              zoom: zoom,
+              styles: [
+                {
+                  featureType: "water",
+                  elementType: "geometry",
+                  stylers: [
+                    {
+                      color: "#e9e9e9",
+                    },
+                    {
+                      lightness: 17,
+                    },
+                  ],
+                },
+                {
+                  featureType: "landscape",
+                  elementType: "geometry",
+                  stylers: [
+                    {
+                      color: "#f5f5f5",
+                    },
+                    {
+                      lightness: 20,
+                    },
+                  ],
+                },
+                {
+                  featureType: "road.highway",
+                  elementType: "geometry.fill",
+                  stylers: [
+                    {
+                      color: "#ffffff",
+                    },
+                    {
+                      lightness: 17,
+                    },
+                  ],
+                },
+                {
+                  featureType: "road.highway",
+                  elementType: "geometry.stroke",
+                  stylers: [
+                    {
+                      color: "#ffffff",
+                    },
+                    {
+                      lightness: 29,
+                    },
+                    {
+                      weight: 0.2,
+                    },
+                  ],
+                },
+                {
+                  featureType: "road.arterial",
+                  elementType: "geometry",
+                  stylers: [
+                    {
+                      color: "#ffffff",
+                    },
+                    {
+                      lightness: 18,
+                    },
+                  ],
+                },
+                {
+                  featureType: "road.local",
+                  elementType: "geometry",
+                  stylers: [
+                    {
+                      color: "#ffffff",
+                    },
+                    {
+                      lightness: 16,
+                    },
+                  ],
+                },
+                {
+                  featureType: "poi",
+                  elementType: "geometry",
+                  stylers: [
+                    {
+                      color: "#f5f5f5",
+                    },
+                    {
+                      lightness: 21,
+                    },
+                  ],
+                },
+                {
+                  featureType: "poi.park",
+                  elementType: "geometry",
+                  stylers: [
+                    {
+                      color: "#dedede",
+                    },
+                    {
+                      lightness: 21,
+                    },
+                  ],
+                },
+                {
+                  elementType: "labels.text.stroke",
+                  stylers: [
+                    {
+                      visibility: "on",
+                    },
+                    {
+                      color: "#ffffff",
+                    },
+                    {
+                      lightness: 16,
+                    },
+                  ],
+                },
+                {
+                  elementType: "labels.text.fill",
+                  stylers: [
+                    {
+                      saturation: 36,
+                    },
+                    {
+                      color: "#333333",
+                    },
+                    {
+                      lightness: 40,
+                    },
+                  ],
+                },
+                {
+                  elementType: "labels.icon",
+                  stylers: [
+                    {
+                      visibility: "off",
+                    },
+                  ],
+                },
+                {
+                  featureType: "transit",
+                  elementType: "geometry",
+                  stylers: [
+                    {
+                      color: "#f2f2f2",
+                    },
+                    {
+                      lightness: 19,
+                    },
+                  ],
+                },
+                {
+                  featureType: "administrative",
+                  elementType: "geometry.fill",
+                  stylers: [
+                    {
+                      color: "#fefefe",
+                    },
+                    {
+                      lightness: 20,
+                    },
+                  ],
+                },
+                {
+                  featureType: "administrative",
+                  elementType: "geometry.stroke",
+                  stylers: [
+                    {
+                      color: "#fefefe",
+                    },
+                    {
+                      lightness: 17,
+                    },
+                    {
+                      weight: 1.2,
+                    },
+                  ],
+                },
+              ],
+            });
           google.maps.event.addDomListener(window, "resize", function () {
             let center = map.getCenter();
             google.maps.event.trigger(map, "resize");
@@ -304,7 +382,7 @@ const dsnParam = {
             animation: google.maps.Animation.BOUNCE,
             icon: dsnParam.map.marker_icon,
             title: "ASL",
-            map: map
+            map: map,
           });
         });
       } catch (e) {
@@ -316,25 +394,24 @@ const dsnParam = {
    *
    */
 
-
   function preloader() {
     const preloader = $("#dsn_preloader");
 
     if (!preloader.length) {
-      window.addEventListener('DOMContentLoaded', function () {
-        reloadAjax().catch($err => {
+      window.addEventListener("DOMContentLoaded", function () {
+        reloadAjax().catch(($err) => {
           console.log($err);
         });
       });
       return false;
     }
 
-    $body.css('overflow', 'hidden');
+    $body.css("overflow", "hidden");
     const progress_number = preloader.find(".loading-count"),
-          preloader_progress = preloader.find('.dsn-progress-path'),
-          present = {
-      value: 0
-    };
+      preloader_progress = preloader.find(".dsn-progress-path"),
+      present = {
+        value: 0,
+      };
 
     const updateVal = (val, isSetVal) => {
       progress_number.text(val.toFixed(0));
@@ -349,10 +426,9 @@ const dsnParam = {
 
       onProgress(val) {
         updateVal(val, true);
-      }
-
+      },
     });
-    window.addEventListener('DOMContentLoaded', function () {
+    window.addEventListener("DOMContentLoaded", function () {
       clearInterval(timer);
       const tl = gsap.timeline();
       tl.to(present, 1, {
@@ -360,45 +436,62 @@ const dsnParam = {
 
         onUpdate() {
           updateVal(present.value, true);
-        }
-
-      }).call(function () {
-        reloadAjax().catch($err => {
-          console.log($err);
-        });
-      }).to(preloader.find('> *:not(.bg-load)'), {
-        autoAlpha: 0
-      }).to(preloader.find('.bg-load'), {
-        yPercent: -100,
-        ease: Expo.easeInOut,
-        duration: 1.5
-      }).to(preloader.find('.bg-load .separator__path'), {
-        attr: {
-          d: dsnGrid.getData(preloader.find('.bg-load .separator__path').get(0), 'to')
         },
-        ease: "Power4.easeInOut",
-        duration: 1.5
-      }, '-=1.5').fromTo("#main_root", 1, {
-        y: 400
-      }, {
-        y: 0,
-        clearProps: true,
-        ease: Expo.easeInOut
-      }, "-=1.2").call(function () {
-        preloader.remove();
-        ScrollTrigger.update();
-        $body.css('overflow', '');
-        ScrollTrigger.getAll().forEach($item => {
-          $item.refresh();
+      })
+        .call(function () {
+          reloadAjax().catch(($err) => {
+            console.log($err);
+          });
+        })
+        .to(preloader.find("> *:not(.bg-load)"), {
+          autoAlpha: 0,
+        })
+        .to(preloader.find(".bg-load"), {
+          yPercent: -100,
+          ease: Expo.easeInOut,
+          duration: 1.5,
+        })
+        .to(
+          preloader.find(".bg-load .separator__path"),
+          {
+            attr: {
+              d: dsnGrid.getData(
+                preloader.find(".bg-load .separator__path").get(0),
+                "to"
+              ),
+            },
+            ease: "Power4.easeInOut",
+            duration: 1.5,
+          },
+          "-=1.5"
+        )
+        .fromTo(
+          "#main_root",
+          1,
+          {
+            y: 400,
+          },
+          {
+            y: 0,
+            clearProps: true,
+            ease: Expo.easeInOut,
+          },
+          "-=1.2"
+        )
+        .call(function () {
+          preloader.remove();
+          ScrollTrigger.update();
+          $body.css("overflow", "");
+          ScrollTrigger.getAll().forEach(($item) => {
+            $item.refresh();
+          });
         });
-      });
     });
   }
   /**
    *  -   event will be triggered by doing browser action such as
    *  a click on the back or forward button
    */
-
 
   function effectBackForward() {
     $wind.on("popstate", function (e) {
@@ -422,33 +515,31 @@ const dsnParam = {
 
   function dsnAjax() {
     return dsnGrid.dsnAjax({
-      className: 'dsn-ajax-effect',
-      beforeSend: () => $body.css('overflow', 'hidden'),
+      className: "dsn-ajax-effect",
+      beforeSend: () => $body.css("overflow", "hidden"),
 
       async success(data) {
         const animate = {
-          value: 0
+          value: 0,
         };
         return gsap.to(animate, 0.2, {
           value: 100,
           delay: 1,
 
           onStart() {
-            reloadAjax(true).catch($err => {
+            reloadAjax(true).catch(($err) => {
               console.error($err);
             });
-          }
-
+          },
         });
       },
 
       onComplete() {
         setTimeout(() => {
-          $body.css('overflow', '');
+          $body.css("overflow", "");
         }, 500);
         ScrollTrigger.refresh();
-      }
-
+      },
     });
   }
 
@@ -463,31 +554,47 @@ const dsnParam = {
       svg: menu.querySelector("svg.bg-load path"),
       subMenu: $(menu).find("li.nav-item.has-sub-menu > a"),
       back: $(menu).find("li.dsn-back"),
-      hamburger: menu.classList.contains('dsn-hamburger'),
-      scrDown: 0
+      hamburger: menu.classList.contains("dsn-hamburger"),
+      scrDown: 0,
     };
-    const reserved = dsnGrid.useState(false, (newValue, oldValue) => oldValue && removeOpenMenu());
-    const typeNav = dsnGrid.useState(targets.hamburger, newValue => newValue ? menu.classList.add("dsn-hamburger") : menu.classList.remove("dsn-hamburger"));
+    const reserved = dsnGrid.useState(
+      false,
+      (newValue, oldValue) => oldValue && removeOpenMenu()
+    );
+    const typeNav = dsnGrid.useState(targets.hamburger, (newValue) =>
+      newValue
+        ? menu.classList.add("dsn-hamburger")
+        : menu.classList.remove("dsn-hamburger")
+    );
 
-    const removeOpenMenu = () => menu.querySelectorAll('ul').forEach(item => item.classList.remove('open'));
+    const removeOpenMenu = () =>
+      menu
+        .querySelectorAll("ul")
+        .forEach((item) => item.classList.remove("open"));
 
     const TransEnd = () => {
       var _menu$querySelector;
 
-      return reserved.getValue() && ((_menu$querySelector = menu.querySelector('.primary-nav')) === null || _menu$querySelector === void 0 ? void 0 : _menu$querySelector.classList.add('open'));
+      return (
+        reserved.getValue() &&
+        ((_menu$querySelector = menu.querySelector(".primary-nav")) === null ||
+        _menu$querySelector === void 0
+          ? void 0
+          : _menu$querySelector.classList.add("open"))
+      );
     };
 
-    const onCompleteAnimate = e => {
-      e.classList.toggle('open');
-      menu.classList.toggle('dsn-open');
-      $body.toggleClass('over-hidden');
+    const onCompleteAnimate = (e) => {
+      e.classList.toggle("open");
+      menu.classList.toggle("dsn-open");
+      $body.toggleClass("over-hidden");
       reserved.setValue(!reserved.getValue());
     };
 
-    const handleClick = e => {
+    const handleClick = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      e.currentTarget.closest('.open').classList.remove('open');
+      e.currentTarget.closest(".open").classList.remove("open");
     };
 
     const handleClickSubMenu = function (e) {
@@ -495,32 +602,69 @@ const dsnParam = {
 
       if (!typeNav.getValue()) return;
       handleClick(e);
-      (_e$currentTarget = e.currentTarget) === null || _e$currentTarget === void 0 ? void 0 : (_e$currentTarget$pare = _e$currentTarget.parentElement) === null || _e$currentTarget$pare === void 0 ? void 0 : (_e$currentTarget$pare2 = _e$currentTarget$pare.querySelector('ul')) === null || _e$currentTarget$pare2 === void 0 ? void 0 : _e$currentTarget$pare2.classList.add("open");
+      (_e$currentTarget = e.currentTarget) === null ||
+      _e$currentTarget === void 0
+        ? void 0
+        : (_e$currentTarget$pare = _e$currentTarget.parentElement) === null ||
+          _e$currentTarget$pare === void 0
+        ? void 0
+        : (_e$currentTarget$pare2 =
+            _e$currentTarget$pare.querySelector("ul")) === null ||
+          _e$currentTarget$pare2 === void 0
+        ? void 0
+        : _e$currentTarget$pare2.classList.add("open");
     };
 
-    const handleClickBackMenu = e => {
+    const handleClickBackMenu = (e) => {
       handleClick(e);
-      e.currentTarget.closest('ul').closest('li').closest('ul').classList.add("open");
+      e.currentTarget
+        .closest("ul")
+        .closest("li")
+        .closest("ul")
+        .classList.add("open");
     };
 
     const toggleClick = function () {
       if (!reserved.getValue()) {
-        dsnGrid.svgAnimate.up(targets.svg, TransEnd).to("#dsn-scrollbar", {
-          y: -200,
-          duration: 1,
-          ease: 'power4.in'
-        }, "top").set(targets.backgroundMain, {
-          autoAlpha: 1
-        }, "center");
+        dsnGrid.svgAnimate
+          .up(targets.svg, TransEnd)
+          .to(
+            "#dsn-scrollbar",
+            {
+              y: -200,
+              duration: 1,
+              ease: "power4.in",
+            },
+            "top"
+          )
+          .set(
+            targets.backgroundMain,
+            {
+              autoAlpha: 1,
+            },
+            "center"
+          );
         onCompleteAnimate(this);
-      } else dsnGrid.svgAnimate.down(targets.svg, () => onCompleteAnimate(this)).to("#dsn-scrollbar", {
-        y: 0,
-        clearProps: "y",
-        duration: 1,
-        ease: 'power4'
-      }, "-=1").set(targets.backgroundMain, {
-        autoAlpha: 0
-      }, "center");
+      } else
+        dsnGrid.svgAnimate
+          .down(targets.svg, () => onCompleteAnimate(this))
+          .to(
+            "#dsn-scrollbar",
+            {
+              y: 0,
+              clearProps: "y",
+              duration: 1,
+              ease: "power4",
+            },
+            "-=1"
+          )
+          .set(
+            targets.backgroundMain,
+            {
+              autoAlpha: 0,
+            },
+            "center"
+          );
     };
 
     const resizeNav = function () {
@@ -534,46 +678,67 @@ const dsnParam = {
     };
 
     if (!targets.hamburger) {
-      window.addEventListener('resize', resizeNav);
+      window.addEventListener("resize", resizeNav);
       resizeNav();
     }
 
-    new Promise(resolve => setTimeout(() => resolve(), 300)).then(() => {
-      var _targets$toggle;
+    new Promise((resolve) => setTimeout(() => resolve(), 300))
+      .then(() => {
+        var _targets$toggle;
 
-      return dsnGrid.spltting.Char((_targets$toggle = targets.toggle) === null || _targets$toggle === void 0 ? void 0 : _targets$toggle.querySelector('.text-menu'));
-    }).then(() => {
-      var _targets$toggle2;
+        return dsnGrid.spltting.Char(
+          (_targets$toggle = targets.toggle) === null ||
+            _targets$toggle === void 0
+            ? void 0
+            : _targets$toggle.querySelector(".text-menu")
+        );
+      })
+      .then(() => {
+        var _targets$toggle2;
 
-      return dsnGrid.spltting.Char((_targets$toggle2 = targets.toggle) === null || _targets$toggle2 === void 0 ? void 0 : _targets$toggle2.querySelector('.text-open'));
-    }).then(() => {
-      var _targets$toggle3;
+        return dsnGrid.spltting.Char(
+          (_targets$toggle2 = targets.toggle) === null ||
+            _targets$toggle2 === void 0
+            ? void 0
+            : _targets$toggle2.querySelector(".text-open")
+        );
+      })
+      .then(() => {
+        var _targets$toggle3;
 
-      return dsnGrid.spltting.Char((_targets$toggle3 = targets.toggle) === null || _targets$toggle3 === void 0 ? void 0 : _targets$toggle3.querySelector('.text-close'));
-    }).then(() => {
-      targets.back.find(".text-toggle-back").each(function ($index) {
-        setTimeout(() => dsnGrid.spltting.Char(this), 10 * $index);
-      });
-    }).then(() => {
-      menu.querySelectorAll('ul').forEach((item, index) => {
-        item.style.setProperty('--dsn-li-name', "dsn" + index);
-        Object.keys(item.children).forEach($key => {
-          item.children[$key].style.setProperty('--dsn-li-index', $key);
+        return dsnGrid.spltting.Char(
+          (_targets$toggle3 = targets.toggle) === null ||
+            _targets$toggle3 === void 0
+            ? void 0
+            : _targets$toggle3.querySelector(".text-close")
+        );
+      })
+      .then(() => {
+        targets.back.find(".text-toggle-back").each(function ($index) {
+          setTimeout(() => dsnGrid.spltting.Char(this), 10 * $index);
+        });
+      })
+      .then(() => {
+        menu.querySelectorAll("ul").forEach((item, index) => {
+          item.style.setProperty("--dsn-li-name", "dsn" + index);
+          Object.keys(item.children).forEach(($key) => {
+            item.children[$key].style.setProperty("--dsn-li-index", $key);
+          });
+        });
+      })
+      .then(() => {
+        gsap.set(menu, {
+          yPercent: -100,
+          autoAlpha: 0,
+        });
+        menu.classList.remove("d-none");
+        gsap.to(menu, {
+          yPercent: 0,
+          autoAlpha: 0,
+          delay: 1,
+          clearProps: true,
         });
       });
-    }).then(() => {
-      gsap.set(menu, {
-        yPercent: -100,
-        autoAlpha: 0
-      });
-      menu.classList.remove('d-none');
-      gsap.to(menu, {
-        yPercent: 0,
-        autoAlpha: 0,
-        delay: 1,
-        clearProps: true
-      });
-    });
     $effectScroll.getListener(function (e, x, y) {
       if (y > 170) {
         if (targets.scrDown < y) {
@@ -587,22 +752,29 @@ const dsnParam = {
 
       targets.scrDown = y;
     });
-    (_targets$toggle4 = targets.toggle) === null || _targets$toggle4 === void 0 ? void 0 : _targets$toggle4.addEventListener('click', toggleClick);
-    targets.subMenu.on('click', handleClickSubMenu);
-    targets.back.on('click', handleClickBackMenu);
+    (_targets$toggle4 = targets.toggle) === null || _targets$toggle4 === void 0
+      ? void 0
+      : _targets$toggle4.addEventListener("click", toggleClick);
+    targets.subMenu.on("click", handleClickSubMenu);
+    targets.back.on("click", handleClickBackMenu);
     dsnGrid.killAjax(function () {
       var _targets$toggle5;
 
-      (_targets$toggle5 = targets.toggle) === null || _targets$toggle5 === void 0 ? void 0 : _targets$toggle5.removeEventListener('click', toggleClick);
-      targets.subMenu.off('click', handleClickSubMenu);
-      targets.back.off('click', handleClickBackMenu);
+      (_targets$toggle5 = targets.toggle) === null ||
+      _targets$toggle5 === void 0
+        ? void 0
+        : _targets$toggle5.removeEventListener("click", toggleClick);
+      targets.subMenu.off("click", handleClickSubMenu);
+      targets.back.off("click", handleClickBackMenu);
     });
   }
 
   function dropHash() {
     const linked = {
-      hash: $("a[href=\"#\"]"),
-      scroll: $("[href*=\"#\"]:not([href=\"#\"]):not(.comment-reply-link):not(#cancel-comment-reply-link):not(.wc-tabs .wc-effect-tab)")
+      hash: $('a[href="#"]'),
+      scroll: $(
+        '[href*="#"]:not([href="#"]):not(.comment-reply-link):not(#cancel-comment-reply-link):not(.wc-tabs .wc-effect-tab)'
+      ),
     };
     linked.hash.on("click", function (e) {
       e.preventDefault();
@@ -616,7 +788,7 @@ const dsnParam = {
         return false;
       }
 
-      const option = $(this).data('dsn-option');
+      const option = $(this).data("dsn-option");
       dsnGrid.scrollTop(href.get(0).offsetTop, option);
       href = null;
     });
@@ -634,39 +806,45 @@ const dsnParam = {
 
   function scrollBarWidth() {
     const scrollDiv = document.createElement("div");
-    scrollDiv.style.cssText = "width:100px;height:100px;overflow: scroll;position: absolute;top: -9999px;";
+    scrollDiv.style.cssText =
+      "width:100px;height:100px;overflow: scroll;position: absolute;top: -9999px;";
     document.body.appendChild(scrollDiv);
-    document.body.style.setProperty('--dsn-width-scroll', scrollDiv.offsetWidth - scrollDiv.clientWidth + "px");
+    document.body.style.setProperty(
+      "--dsn-width-scroll",
+      scrollDiv.offsetWidth - scrollDiv.clientWidth + "px"
+    );
     document.body.removeChild(scrollDiv);
   }
 
   async function Isotope($el = $(document)) {
     const createIso = async function ($item) {
       if (!$item.length) return;
-      $item.addClass('use-filter');
+      $item.addClass("use-filter");
       return $item.isotope({
-        itemSelector: '.grid-item'
+        itemSelector: ".grid-item",
       });
     };
 
-    await $el.find('.root-posts').each(function () {
+    await $el.find(".root-posts").each(function () {
       const rootPosts = $(this),
-            $filtering = rootPosts.find('.dsn-filtering .filtering'),
-            $isoItem = rootPosts.hasClass('has-filter') ? rootPosts.find('.dsn-posts') : rootPosts.find('.dsn-isotope'),
-            $buttonAjax = rootPosts.find('.button-load-more');
+        $filtering = rootPosts.find(".dsn-filtering .filtering"),
+        $isoItem = rootPosts.hasClass("has-filter")
+          ? rootPosts.find(".dsn-posts")
+          : rootPosts.find(".dsn-isotope"),
+        $buttonAjax = rootPosts.find(".button-load-more");
       if (!$filtering.length && !$isoItem.length && !$buttonAjax.length) return;
 
       const handleClickFilter = function ($iso) {
         if (!$filtering.length) return $iso;
 
         const handleClick = function () {
-          $(this).addClass('active').siblings().removeClass("active");
+          $(this).addClass("active").siblings().removeClass("active");
           $iso.isotope({
-            filter: $(this).attr("data-filter")
+            filter: $(this).attr("data-filter"),
           });
         };
 
-        $filtering.find('button').on("click", handleClick);
+        $filtering.find("button").on("click", handleClick);
         return $iso;
       };
 
@@ -681,61 +859,75 @@ const dsnParam = {
             $animate.parallaxHover();
           },
           filtering: $filtering,
-          posts: rootPosts.find('.dsn-posts')
+          posts: rootPosts.find(".dsn-posts"),
         });
         return $iso;
       };
 
-      createIso($isoItem).then(handleClickFilter).then(handleAjax).then(function ($iso) {
-        dsnGrid.killAjax(function () {
-          $filtering.find('button').off('click');
-          if ($iso) $iso.isotope('destroy');
-          $buttonAjax.off('click');
+      createIso($isoItem)
+        .then(handleClickFilter)
+        .then(handleAjax)
+        .then(function ($iso) {
+          dsnGrid.killAjax(function () {
+            $filtering.find("button").off("click");
+            if ($iso) $iso.isotope("destroy");
+            $buttonAjax.off("click");
+          });
         });
-      });
     });
     await $el.find(".dsn-isotope:not(.use-filter)").each(function () {
-      if ($(this).parent('.root-posts').length) return;
+      if ($(this).parent(".root-posts").length) return;
       createIso($(this)).then(function ($iso) {
         dsnGrid.killAjax(function () {
-          if ($iso) $iso.isotope('destroy');
+          if ($iso) $iso.isotope("destroy");
         });
       });
     });
   }
 
   function loadLazyImage($el = $(document), $type, $args = {}) {
-    if (typeof $type === 'object') {
-      $type.forEach($item => {
+    if (typeof $type === "object") {
+      $type.forEach(($item) => {
         loadLazyImage($el, $item);
       });
     } else {
       const dsnData = $el.find("[data-dsn-" + $type + "]");
       dsnData.each(function ($index) {
         const $args = {};
-        if (dsnData.length - 1 === $index && $type === "src") $args.onComplete = () => {
-          $('.swiper-container.swiper-initialized').each(function () {
-            var _swiper$passedParams;
+        if (dsnData.length - 1 === $index && $type === "src")
+          $args.onComplete = () => {
+            $(".swiper-container.swiper-initialized").each(function () {
+              var _swiper$passedParams;
 
-            const swiper = this.swiper;
-            if (!(swiper === null || swiper === void 0 ? void 0 : (_swiper$passedParams = swiper.passedParams) === null || _swiper$passedParams === void 0 ? void 0 : _swiper$passedParams.loop)) return;
-            swiper.loopDestroy();
-            swiper.loopCreate();
-            swiper.update();
-            swiper.updateSlides();
-          });
-          $('.dsn-isotope').each(function () {
-            $(this).isotope({
-              itemSelector: '.grid-item'
+              const swiper = this.swiper;
+              if (
+                !(swiper === null || swiper === void 0
+                  ? void 0
+                  : (_swiper$passedParams = swiper.passedParams) === null ||
+                    _swiper$passedParams === void 0
+                  ? void 0
+                  : _swiper$passedParams.loop)
+              )
+                return;
+              swiper.loopDestroy();
+              swiper.loopCreate();
+              swiper.update();
+              swiper.updateSlides();
             });
-          });
-        };else $args.onComplete = () => {
-          $('.dsn-isotope').each(function () {
-            $(this).isotope({
-              itemSelector: '.grid-item'
+            $(".dsn-isotope").each(function () {
+              $(this).isotope({
+                itemSelector: ".grid-item",
+              });
             });
-          });
-        };
+          };
+        else
+          $args.onComplete = () => {
+            $(".dsn-isotope").each(function () {
+              $(this).isotope({
+                itemSelector: ".grid-item",
+              });
+            });
+          };
         setTimeout(() => {
           dsnGrid.loadData(this, $type, $args);
         }, 1000);
@@ -745,19 +937,22 @@ const dsnParam = {
 
   function serviceSection($el = $(document)) {
     if (dsnGrid.isMobile()) return;
-    ($el.hasClass("service-with-img") ? $el.find('.dsn-service') : $el.find(".service-with-img")).each(function () {
+    ($el.hasClass("service-with-img")
+      ? $el.find(".dsn-service")
+      : $el.find(".service-with-img")
+    ).each(function () {
       const serviceItem = $(this).find(".service-item"),
-            onEnter = function () {
-        serviceItem.not(this).removeClass('active');
-        this.classList.add("active");
-        serviceItem.not(this).find('.service_description ').slideUp(400);
-        $(this).find('.service_description ').slideDown(400);
-      };
+        onEnter = function () {
+          serviceItem.not(this).removeClass("active");
+          this.classList.add("active");
+          serviceItem.not(this).find(".service_description ").slideUp(400);
+          $(this).find(".service_description ").slideDown(400);
+        };
 
       serviceItem.first().addClass("active");
-      serviceItem.on('mouseenter', onEnter);
+      serviceItem.on("mouseenter", onEnter);
       dsnGrid.killAjax(function () {
-        serviceItem.off('mouseenter', onEnter);
+        serviceItem.off("mouseenter", onEnter);
       });
     });
   }
@@ -766,7 +961,6 @@ const dsnParam = {
    * (aka inertial scrolling) on modern browsers.
    *
    */
-
 
   function effectScroller() {
     const locked_scroll = "locked-scroll";
@@ -780,12 +974,17 @@ const dsnParam = {
       isScroller: function () {
         var _dsnParam$scrollbar;
 
-        return dsnParam === null || dsnParam === void 0 ? void 0 : (_dsnParam$scrollbar = dsnParam.scrollbar) === null || _dsnParam$scrollbar === void 0 ? void 0 : _dsnParam$scrollbar.smooth;
+        return dsnParam === null || dsnParam === void 0
+          ? void 0
+          : (_dsnParam$scrollbar = dsnParam.scrollbar) === null ||
+            _dsnParam$scrollbar === void 0
+          ? void 0
+          : _dsnParam$scrollbar.smooth;
       },
       start: function () {
         $body.removeClass(locked_scroll);
         dsnGrid.scrollTop(0, {
-          duration: 0.01
+          duration: 0.01,
         });
         if (!this.isScroller()) return;
         lenisScroll = new Lenis(dsnParam.scrollbar);
@@ -805,7 +1004,10 @@ const dsnParam = {
         var _lenisScroll;
 
         $body.addClass(locked_scroll);
-        this.isScroller() && ((_lenisScroll = lenisScroll) === null || _lenisScroll === void 0 ? void 0 : _lenisScroll.destroy());
+        this.isScroller() &&
+          ((_lenisScroll = lenisScroll) === null || _lenisScroll === void 0
+            ? void 0
+            : _lenisScroll.destroy());
       },
 
       /**
@@ -826,17 +1028,17 @@ const dsnParam = {
       getListener: function (listener) {
         if (listener === undefined) return;
 
-        const scroll = e => {
+        const scroll = (e) => {
           listener(e, window.scrollX, window.scrollY);
         };
 
         $wind.on("scroll", scroll);
-      }
+      },
     };
   }
 
   function compareTowImage($el = $(document)) {
-    $el.find('.dsn-compare-container').each(function () {
+    $el.find(".dsn-compare-container").each(function () {
       const compare = dsnGrid.compareTowImg(this);
       dsnGrid.killAjax(function () {
         compare.destroy();
@@ -849,7 +1051,9 @@ const dsnParam = {
     Fancybox.defaults.Hash = false;
     Fancybox.bind(".vid");
     Fancybox.bind("[data-fancybox]");
-    Fancybox.bind(".woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image  a");
+    Fancybox.bind(
+      ".woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image  a"
+    );
     dsnGrid.killAjax(function () {
       Fancybox.unbind(".vid");
       Fancybox.unbind("[data-fancybox]");
@@ -860,34 +1064,36 @@ const dsnParam = {
    * @param $el
    */
 
-
   function projectSlider() {
     return {
       swiper: function ($id, $obj) {
         $id = dsnGrid.convertToJQuery($id);
-        $obj = $.extend(true, {
-          slidesPerView: 1,
-          centeredSlides: true,
-          spaceBetween: 0,
-          grabCursor: true,
-          speed: 1000,
-          parallax: true,
-          loop: true,
-          // slideToClickedSlide: true,
-          pagination: {
-            el: $id.find(".swiper-pagination").get(0),
-            dynamicBullets: true,
-            clickable: true //
-            // renderBullet: function (index, className) {
-            //     return '<span class="' + className + ' swiper-pagination-bullet--svg-animation"><svg width="26" height="26" viewBox="0 0 28 28"><circle class="svg__circle" cx="14" cy="14" r="12" fill="none" stroke-width="2"></circle><circle class="svg__circle-inner" cx="14" cy="14" r="6" stroke-width="3"></circle></svg></span>';
-            // },
-
+        $obj = $.extend(
+          true,
+          {
+            slidesPerView: 1,
+            centeredSlides: true,
+            spaceBetween: 0,
+            grabCursor: true,
+            speed: 1000,
+            parallax: true,
+            loop: true,
+            // slideToClickedSlide: true,
+            pagination: {
+              el: $id.find(".swiper-pagination").get(0),
+              dynamicBullets: true,
+              clickable: true, //
+              // renderBullet: function (index, className) {
+              //     return '<span class="' + className + ' swiper-pagination-bullet--svg-animation"><svg width="26" height="26" viewBox="0 0 28 28"><circle class="svg__circle" cx="14" cy="14" r="12" fill="none" stroke-width="2"></circle><circle class="svg__circle-inner" cx="14" cy="14" r="6" stroke-width="3"></circle></svg></span>';
+              // },
+            },
+            navigation: {
+              nextEl: $id.find(".swiper-next").get(0),
+              prevEl: $id.find(".swiper-prev").get(0),
+            },
           },
-          navigation: {
-            nextEl: $id.find(".swiper-next").get(0),
-            prevEl: $id.find(".swiper-prev").get(0)
-          }
-        }, $obj);
+          $obj
+        );
         const $s = new Swiper($id.find(".swiper-container").get(0), $obj);
         dsnGrid.killAjax(() => {
           $s.destroy();
@@ -900,55 +1106,65 @@ const dsnParam = {
           let syn = $(this).parent().find(dsnGrid.getData(this, "controller"));
 
           if (syn.length) {
-            option['thumbs'] = {
+            option["thumbs"] = {
               swiper: {
-                el: syn.find('.swiper-container').get(0),
+                el: syn.find(".swiper-container").get(0),
                 allowTouchMove: false,
                 slidesPerView: 1,
                 speed: option.speed || 1000,
                 parallax: true,
-                autoHeight: true
-              }
+                autoHeight: true,
+              },
             };
           }
 
           option["breakpoints"] = {
             768: {
-              slidesPerView: option.slidesPerView > 1 ? option.slidesPerView > 1.5 ? 2 : 1.30 : 1,
-              spaceBetween: option.slidesPerView > 1 ? option.spaceBetween > 21 ? 20 : option.spaceBetween : 0
+              slidesPerView:
+                option.slidesPerView > 1
+                  ? option.slidesPerView > 1.5
+                    ? 2
+                    : 1.3
+                  : 1,
+              spaceBetween:
+                option.slidesPerView > 1
+                  ? option.spaceBetween > 21
+                    ? 20
+                    : option.spaceBetween
+                  : 0,
             },
             992: {
               slidesPerView: option.slidesPerView,
-              spaceBetween: option.spaceBetween || 0
+              spaceBetween: option.spaceBetween || 0,
             },
             575: {
               slidesPerView: 1,
-              spaceBetween: 0
-            }
+              spaceBetween: 0,
+            },
           };
 
           if (syn.length) {
-            option['thumbs'] = {
+            option["thumbs"] = {
               swiper: {
-                el: syn.find('.swiper-container').get(0),
+                el: syn.find(".swiper-container").get(0),
                 allowTouchMove: false,
                 slidesPerView: 1,
                 speed: option.speed || 1000,
                 parallax: true,
-                autoHeight: true
-              }
+                autoHeight: true,
+              },
             };
-            option.breakpoints['768'] = {
+            option.breakpoints["768"] = {
               slidesPerView: 1,
-              spaceBetween: 0
+              spaceBetween: 0,
             };
           }
 
-          option['slidesPerView'] = 1;
-          option['spaceBetween'] = 0;
+          option["slidesPerView"] = 1;
+          option["spaceBetween"] = 0;
           $this.swiper(this, option);
         });
-      }
+      },
     };
   }
   /**
@@ -958,19 +1174,19 @@ const dsnParam = {
    *
    */
 
-
   function justifiedGallery($el = $(document)) {
     $el.find(".gallery-portfolio").each(function () {
       if (!window.fjGallery) return;
-      const option = dsnGrid.getData(this, 'option') || {};
-      const gallery = fjGallery(this, { ...option,
-        itemSelector: '.fj-gallery-item',
+      const option = dsnGrid.getData(this, "option") || {};
+      const gallery = fjGallery(this, {
+        ...option,
+        itemSelector: ".fj-gallery-item",
         onJustify: function () {
           ScrollTrigger.refresh();
-        }
+        },
       });
       dsnGrid.killAjax(function () {
-        fjGallery(gallery, 'destroy');
+        fjGallery(gallery, "destroy");
       });
     });
   }
@@ -979,20 +1195,26 @@ const dsnParam = {
     let tl = gsap.timeline();
     const pagination = {
       next: [],
-      prev: []
+      prev: [],
     };
 
     const initSlider = async function () {
-      const dsnSliderContent = this.querySelector('.dsn-slider-content');
-      await this.querySelectorAll('.content-slider .slide-item').forEach(($item, $index) => {
-        var _slideContent$querySe, _slideContent$querySe2;
+      const dsnSliderContent = this.querySelector(".dsn-slider-content");
+      await this.querySelectorAll(".content-slider .slide-item").forEach(
+        ($item, $index) => {
+          var _slideContent$querySe, _slideContent$querySe2;
 
-        const slideContent = $item.querySelector('.slide-content');
-        $item.setAttribute('data-dsn-id', $index);
-        if (!slideContent) return;
-        slideContent === null || slideContent === void 0 ? void 0 : slideContent.setAttribute('data-dsn-id', $index);
-        if ($index === 0) slideContent === null || slideContent === void 0 ? void 0 : slideContent.classList.add('dsn-active', 'dsn-active-animate');
-        pagination.prev.push(`<div class="swiper-slide">
+          const slideContent = $item.querySelector(".slide-content");
+          $item.setAttribute("data-dsn-id", $index);
+          if (!slideContent) return;
+          slideContent === null || slideContent === void 0
+            ? void 0
+            : slideContent.setAttribute("data-dsn-id", $index);
+          if ($index === 0)
+            slideContent === null || slideContent === void 0
+              ? void 0
+              : slideContent.classList.add("dsn-active", "dsn-active-animate");
+          pagination.prev.push(`<div class="swiper-slide">
                             <div class="box-content w-100 d-flex align-items-center">
                                 <div class="prev-arrow">
                                     <div class="container-inner">
@@ -1010,12 +1232,24 @@ const dsnParam = {
                                         </svg>
                                     </div>
                                 </div>
-                                <div class='box-title'><h6 class='sm-title-block'>${(_slideContent$querySe = slideContent.querySelector('.title')) === null || _slideContent$querySe === void 0 ? void 0 : _slideContent$querySe.innerText}</h6></div>
+                                <div class='box-title'><h6 class='sm-title-block'>${
+                                  (_slideContent$querySe =
+                                    slideContent.querySelector(".title")) ===
+                                    null || _slideContent$querySe === void 0
+                                    ? void 0
+                                    : _slideContent$querySe.innerText
+                                }</h6></div>
                             </div>
                         </div>`);
-        pagination.next.push(`<div class="swiper-slide">
+          pagination.next.push(`<div class="swiper-slide">
                             <div class="box-content w-100 d-flex align-items-center justify-content-end">
-                                <div class='box-title'><h6 class='sm-title-block'>${(_slideContent$querySe2 = slideContent.querySelector('.title')) === null || _slideContent$querySe2 === void 0 ? void 0 : _slideContent$querySe2.innerText}</h6></div>
+                                <div class='box-title'><h6 class='sm-title-block'>${
+                                  (_slideContent$querySe2 =
+                                    slideContent.querySelector(".title")) ===
+                                    null || _slideContent$querySe2 === void 0
+                                    ? void 0
+                                    : _slideContent$querySe2.innerText
+                                }</h6></div>
                                 <div class="next-arrow">
                                     <div class="container-inner">
                                         <svg class="arrow v-middle" xmlns="http://www.w3.org/2000/svg"
@@ -1035,153 +1269,204 @@ const dsnParam = {
                                 </div>
                             </div>
                         </div>`);
-        dsnSliderContent === null || dsnSliderContent === void 0 ? void 0 : dsnSliderContent.append(slideContent);
-      });
+          dsnSliderContent === null || dsnSliderContent === void 0
+            ? void 0
+            : dsnSliderContent.append(slideContent);
+        }
+      );
       pagination.next.push(pagination.next.shift());
       pagination.prev.unshift(pagination.prev.pop());
-      const nextCon = this.querySelector('.next-paginate');
-      if (nextCon) nextCon.innerHTML = `<div class="swiper-wrapper">${pagination.next.join(' ')}</div>`;
-      const navContainer = this.querySelector('.prev-paginate');
-      if (navContainer) navContainer.innerHTML = `<div class="swiper-wrapper">${pagination.prev.join(' ')}</div>`;
-      await this.querySelectorAll('.dsn-slider-content .slide-content [data-dsn-split=\"chars\"]').forEach(function ($item) {
+      const nextCon = this.querySelector(".next-paginate");
+      if (nextCon)
+        nextCon.innerHTML = `<div class="swiper-wrapper">${pagination.next.join(
+          " "
+        )}</div>`;
+      const navContainer = this.querySelector(".prev-paginate");
+      if (navContainer)
+        navContainer.innerHTML = `<div class="swiper-wrapper">${pagination.prev.join(
+          " "
+        )}</div>`;
+      await this.querySelectorAll(
+        '.dsn-slider-content .slide-content [data-dsn-split="chars"]'
+      ).forEach(function ($item) {
         dsnGrid.spltting.Char($item, true);
       });
-      await this.querySelectorAll('.dsn-slider-content .head-meta').forEach(function ($item) {
-        dsnGrid.spltting.Items($item, "span");
-      });
+      await this.querySelectorAll(".dsn-slider-content .head-meta").forEach(
+        function ($item) {
+          dsnGrid.spltting.Items($item, "span");
+        }
+      );
     };
 
-    const init = swiper => {
-      swiper.slides.forEach(item => {
-        const video = item.querySelector('.swiper-slide:not(.swiper-slide-active) video');
+    const init = (swiper) => {
+      swiper.slides.forEach((item) => {
+        const video = item.querySelector(
+          ".swiper-slide:not(.swiper-slide-active) video"
+        );
         if (video) video.pause();
       });
     };
 
-    const activeVideo = swiper => {
-      const newVideo = swiper.slides[swiper.activeIndex].querySelector('video');
-      const oldVideo = swiper.slides[swiper.previousIndex].querySelector('video');
+    const activeVideo = (swiper) => {
+      const newVideo = swiper.slides[swiper.activeIndex].querySelector("video");
+      const oldVideo =
+        swiper.slides[swiper.previousIndex].querySelector("video");
       if (newVideo) newVideo.play();
       if (oldVideo) oldVideo.pause();
     };
 
     const getContent = (swiper, contentRef) => {
-      const oldNum = swiper.slides[swiper.previousIndex].getAttribute("data-dsn-id");
-      const newNum = swiper.slides[swiper.activeIndex].getAttribute("data-dsn-id");
-      return [newNum, oldNum, contentRef.querySelector('[data-dsn-id="' + newNum + '"]'), contentRef.querySelector('[data-dsn-id="' + oldNum + '"]')];
+      const oldNum =
+        swiper.slides[swiper.previousIndex].getAttribute("data-dsn-id");
+      const newNum =
+        swiper.slides[swiper.activeIndex].getAttribute("data-dsn-id");
+      return [
+        newNum,
+        oldNum,
+        contentRef.querySelector('[data-dsn-id="' + newNum + '"]'),
+        contentRef.querySelector('[data-dsn-id="' + oldNum + '"]'),
+      ];
     };
 
     function slideChange(swiper) {
-      const contentSlider = this.querySelector('.dsn-slider-content');
+      const contentSlider = this.querySelector(".dsn-slider-content");
       if (!contentSlider) return;
       activeVideo(swiper);
-      const [newNum, oldNum, newContent, oldContent] = getContent(swiper, contentSlider),
-            [newTitle, oldTitle] = [Array.from(newContent.querySelectorAll('.title .char') || []), Array.from(oldContent.querySelectorAll('.title .char') || [])],
-            $isRight = oldNum < newNum,
-            animate = {
-        show: {
-          autoAlpha: 1,
-          y: 0,
-          stagger: {
-            amount: 0.3,
-            from: "center"
+      const [newNum, oldNum, newContent, oldContent] = getContent(
+          swiper,
+          contentSlider
+        ),
+        [newTitle, oldTitle] = [
+          Array.from(newContent.querySelectorAll(".title .char") || []),
+          Array.from(oldContent.querySelectorAll(".title .char") || []),
+        ],
+        $isRight = oldNum < newNum,
+        animate = {
+          show: {
+            autoAlpha: 1,
+            y: 0,
+            stagger: {
+              amount: 0.3,
+              from: "center",
+            },
+            ease: "back.out(4)",
+            rotation: 0,
+            scale: 1,
+            yoyo: true,
           },
-          ease: "back.out(4)",
-          rotation: 0,
-          scale: 1,
-          yoyo: true
-        },
-        hide: {
-          autoAlpha: 0,
-          y: !$isRight ? "25%" : "-25%",
-          stagger: {
-            amount: 0.3,
-            from: "center"
+          hide: {
+            autoAlpha: 0,
+            y: !$isRight ? "25%" : "-25%",
+            stagger: {
+              amount: 0.3,
+              from: "center",
+            },
+            ease: "back.in(4)",
+            yoyo: true,
+            rotation: 8,
+            scale: 1.1,
           },
-          ease: "back.in(4)",
-          yoyo: true,
-          rotation: 8,
-          scale: 1.1
-        }
-      };
+        };
       const current = Number.parseInt(newNum, 10) + 1,
-            num = this.querySelector(".slider-current-index");
-      if (num) num.innerHTML = current > 9 ? current : '0' + current;
-      if (swiper.dsnOnChange) swiper.dsnOnChange(newNum, oldNum, newContent, oldContent);
+        num = this.querySelector(".slider-current-index");
+      if (num) num.innerHTML = current > 9 ? current : "0" + current;
+      if (swiper.dsnOnChange)
+        swiper.dsnOnChange(newNum, oldNum, newContent, oldContent);
       tl.progress(1);
       tl = new gsap.timeline();
       oldContent.classList.remove("dsn-active-animate");
-      tl.fromTo(oldTitle, 0.4, animate.show, animate.hide).call(function () {
-        oldContent.classList.remove("dsn-active");
-        newContent.classList.add("dsn-active");
-        newContent.classList.add("dsn-active-animate");
-      }).fromTo(newTitle, 0.8, animate.hide, animate.show, "-=.005");
+      tl.fromTo(oldTitle, 0.4, animate.show, animate.hide)
+        .call(function () {
+          oldContent.classList.remove("dsn-active");
+          newContent.classList.add("dsn-active");
+          newContent.classList.add("dsn-active-animate");
+        })
+        .fromTo(newTitle, 0.8, animate.hide, animate.show, "-=.005");
     }
 
     const swiper = function () {
-      const option = Object.assign({}, {
-        on: {
-          init,
-          slideChange: slideChange.bind(this)
+      const option = Object.assign(
+        {},
+        {
+          on: {
+            init,
+            slideChange: slideChange.bind(this),
+          },
+        },
+        dsnGrid.getData(this, "option") || {},
+        {
+          autoHeight: false,
         }
-      }, dsnGrid.getData(this, 'option') || {}, {
-        autoHeight: false
-      });
-      if (window.innerWidth > 767) option.pagination = {
-        el: this.querySelector('.swiper-pagination'),
-        clickable: true,
-        dynamicBullets: true,
-        dynamicMainBullets: 1,
-        type: 'bullets'
-      };
-      return new Swiper(this.querySelector(".content-slider .swiper-container"), option);
+      );
+      if (window.innerWidth > 767)
+        option.pagination = {
+          el: this.querySelector(".swiper-pagination"),
+          clickable: true,
+          dynamicBullets: true,
+          dynamicMainBullets: 1,
+          type: "bullets",
+        };
+      return new Swiper(
+        this.querySelector(".content-slider .swiper-container"),
+        option
+      );
     };
 
     const NavSwiper = function (container, swiper) {
       var _swiper$passedParams2, _swiper$passedParams3;
 
-      const navContainer = container.querySelector('.next-paginate');
+      const navContainer = container.querySelector(".next-paginate");
       setTimeout(function () {
-        gsap.to($(container).find('.bg-container'), {
-          opacity: 1
+        gsap.to($(container).find(".bg-container"), {
+          opacity: 1,
         });
       }, 3000);
       if (!navContainer) return false;
 
       if (window.innerWidth > 575) {
-        navContainer.querySelectorAll('h6.sm-title-block').forEach($item => {
+        navContainer.querySelectorAll("h6.sm-title-block").forEach(($item) => {
           const s = dsnGrid.spltting.Char($item);
           s.chars.forEach(($item, $index) => {
             $index = $index + 5;
-            $item.setAttribute('data-swiper-parallax-y', `${$index * 9}%`);
-            $item.setAttribute(`data-swiper-parallax-opacity`, '0');
-            $item.setAttribute('data-swiper-parallax-duration', $index * 100);
-            $item.classList.add('swiper-parallax-transform');
+            $item.setAttribute("data-swiper-parallax-y", `${$index * 9}%`);
+            $item.setAttribute(`data-swiper-parallax-opacity`, "0");
+            $item.setAttribute("data-swiper-parallax-duration", $index * 100);
+            $item.classList.add("swiper-parallax-transform");
 
             if (s.chars.length === $index - 4) {
-              const arrow = s.el.closest('.box-content').querySelector('.next-arrow');
+              const arrow = s.el
+                .closest(".box-content")
+                .querySelector(".next-arrow");
               if (!arrow) return;
-              arrow.setAttribute('data-swiper-parallax-y', `${$index * 3}%`);
-              arrow.setAttribute(`data-swiper-parallax-opacity`, '0');
-              arrow.setAttribute('data-swiper-parallax-duration', $index * 100);
-              arrow.classList.add('swiper-parallax-transform');
+              arrow.setAttribute("data-swiper-parallax-y", `${$index * 3}%`);
+              arrow.setAttribute(`data-swiper-parallax-opacity`, "0");
+              arrow.setAttribute("data-swiper-parallax-duration", $index * 100);
+              arrow.classList.add("swiper-parallax-transform");
             }
           });
         });
       }
 
       const navSlider = new Swiper(navContainer, {
-        speed: ((_swiper$passedParams2 = swiper.passedParams) === null || _swiper$passedParams2 === void 0 ? void 0 : _swiper$passedParams2.speed) || 1000,
-        loop: ((_swiper$passedParams3 = swiper.passedParams) === null || _swiper$passedParams3 === void 0 ? void 0 : _swiper$passedParams3.loop) || false,
+        speed:
+          ((_swiper$passedParams2 = swiper.passedParams) === null ||
+          _swiper$passedParams2 === void 0
+            ? void 0
+            : _swiper$passedParams2.speed) || 1000,
+        loop:
+          ((_swiper$passedParams3 = swiper.passedParams) === null ||
+          _swiper$passedParams3 === void 0
+            ? void 0
+            : _swiper$passedParams3.loop) || false,
         touchRatio: 0.2,
         resistanceRatio: 0.65,
-        effect: 'fade',
+        effect: "fade",
         parallax: true,
-        allowTouchMove: false
+        allowTouchMove: false,
       });
       swiper.thumbs.swiper = navSlider;
       setTimeout(function () {
-        navContainer.classList.remove('d-none');
+        navContainer.classList.remove("d-none");
       }, 3000);
       return navSlider;
     };
@@ -1189,140 +1474,159 @@ const dsnParam = {
     const NavSwiperPrev = function (container, swiper, nav) {
       var _swiper$passedParams4, _swiper$passedParams5;
 
-      const navContainer = container.querySelector('.prev-paginate');
+      const navContainer = container.querySelector(".prev-paginate");
       setTimeout(function () {
-        gsap.to($(container).find('.bg-container'), {
-          opacity: 1
+        gsap.to($(container).find(".bg-container"), {
+          opacity: 1,
         });
       }, 3000);
       if (!navContainer) return false;
 
       if (window.innerWidth > 575) {
-        navContainer.querySelectorAll('h6.sm-title-block').forEach($item => {
+        navContainer.querySelectorAll("h6.sm-title-block").forEach(($item) => {
           const s = dsnGrid.spltting.Char($item);
           s.chars.forEach(($item, $index) => {
             if ($index === 0) {
               $index = $index + 4;
-              const arrow = s.el.closest('.box-content').querySelector('.prev-arrow');
-              arrow.setAttribute('data-swiper-parallax-y', `${$index * 3}%`);
-              arrow.setAttribute(`data-swiper-parallax-opacity`, '0');
-              arrow.classList.add('swiper-parallax-transform');
+              const arrow = s.el
+                .closest(".box-content")
+                .querySelector(".prev-arrow");
+              arrow.setAttribute("data-swiper-parallax-y", `${$index * 3}%`);
+              arrow.setAttribute(`data-swiper-parallax-opacity`, "0");
+              arrow.classList.add("swiper-parallax-transform");
               $index = 0;
             }
 
             $index = $index + 5;
-            $item.setAttribute('data-swiper-parallax-y', `${$index * 9}%`);
-            $item.setAttribute(`data-swiper-parallax-opacity`, '0');
-            $item.setAttribute('data-swiper-parallax-duration', $index * 100);
-            $item.classList.add('swiper-parallax-transform');
+            $item.setAttribute("data-swiper-parallax-y", `${$index * 9}%`);
+            $item.setAttribute(`data-swiper-parallax-opacity`, "0");
+            $item.setAttribute("data-swiper-parallax-duration", $index * 100);
+            $item.classList.add("swiper-parallax-transform");
           });
         });
       }
 
       const navSlider = new Swiper(navContainer, {
-        speed: ((_swiper$passedParams4 = swiper.passedParams) === null || _swiper$passedParams4 === void 0 ? void 0 : _swiper$passedParams4.speed) || 1000,
-        loop: ((_swiper$passedParams5 = swiper.passedParams) === null || _swiper$passedParams5 === void 0 ? void 0 : _swiper$passedParams5.loop) || false,
+        speed:
+          ((_swiper$passedParams4 = swiper.passedParams) === null ||
+          _swiper$passedParams4 === void 0
+            ? void 0
+            : _swiper$passedParams4.speed) || 1000,
+        loop:
+          ((_swiper$passedParams5 = swiper.passedParams) === null ||
+          _swiper$passedParams5 === void 0
+            ? void 0
+            : _swiper$passedParams5.loop) || false,
         touchRatio: 0.2,
         resistanceRatio: 0.65,
-        effect: 'fade',
+        effect: "fade",
         parallax: true,
-        allowTouchMove: false
+        allowTouchMove: false,
       });
       nav.thumbs.swiper = navSlider;
       setTimeout(function () {
-        navContainer.classList.remove('d-none');
+        navContainer.classList.remove("d-none");
       }, 3000);
       return navSlider;
     };
 
     const webGelOption = function () {
       const images = [];
-      $(this).find(".bg-container .slide-item").each(function () {
-        const slide_content = $(this).find('.image-bg'),
-              id = $(this).data('dsn-id');
+      $(this)
+        .find(".bg-container .slide-item")
+        .each(function () {
+          const slide_content = $(this).find(".image-bg"),
+            id = $(this).data("dsn-id");
 
-        if (slide_content.find('video').length) {
-          images[id] = {
-            posters: slide_content.find('video').get(0),
-            src: slide_content.find('video').attr("data-dsn-poster"),
-            overlay: slide_content.data("overlay")
-          };
-        } else {
-          const img = slide_content.find('img');
-          const srcImg = img.data('dsn-src');
-          images[id] = {
-            src: srcImg !== null && srcImg !== void 0 ? srcImg : img.attr("src"),
-            overlay: slide_content.data("overlay")
-          };
-        }
-      });
-      if (images.length) $(this).find(".bg-container").attr("data-overlay", images[0].overlay);
+          if (slide_content.find("video").length) {
+            images[id] = {
+              posters: slide_content.find("video").get(0),
+              src: slide_content.find("video").attr("data-dsn-poster"),
+              overlay: slide_content.data("overlay"),
+            };
+          } else {
+            const img = slide_content.find("img");
+            const srcImg = img.data("dsn-src");
+            images[id] = {
+              src:
+                srcImg !== null && srcImg !== void 0 ? srcImg : img.attr("src"),
+              overlay: slide_content.data("overlay"),
+            };
+          }
+        });
+      if (images.length)
+        $(this).find(".bg-container").attr("data-overlay", images[0].overlay);
       return images;
     };
 
     $el.find(".main-slider:not(.dsn-swiper-initialized)").each(function () {
-      this.classList.add('dsn-swiper-initialized');
-      initSlider.bind(this)().then(swiper.bind(this)).then(function (swiper) {
-        const handleNext = function () {
-          if (tl.isActive()) return;
+      this.classList.add("dsn-swiper-initialized");
+      initSlider
+        .bind(this)()
+        .then(swiper.bind(this))
+        .then(
+          function (swiper) {
+            const handleNext = function () {
+                if (tl.isActive()) return;
 
-          if (swiper.slides.length === swiper.activeIndex + 1 && !swiper.passedParams.loop) {
-            swiper.slideTo(0);
-          } else {
-            swiper.slideNext();
-          }
-        },
+                if (
+                  swiper.slides.length === swiper.activeIndex + 1 &&
+                  !swiper.passedParams.loop
+                ) {
+                  swiper.slideTo(0);
+                } else {
+                  swiper.slideNext();
+                }
+              },
               handlePrev = function () {
-          if (tl.isActive()) return;
+                if (tl.isActive()) return;
 
-          if (swiper.activeIndex === 0 && !swiper.passedParams.loop) {
-            swiper.slideTo(swiper.slides.length);
-          } else {
-            swiper.slidePrev();
-          }
-        },
-              nextArrow = $(this).find('.next-arrow'),
-              prevArrow = $(this).find('.prev-arrow');
+                if (swiper.activeIndex === 0 && !swiper.passedParams.loop) {
+                  swiper.slideTo(swiper.slides.length);
+                } else {
+                  swiper.slidePrev();
+                }
+              },
+              nextArrow = $(this).find(".next-arrow"),
+              prevArrow = $(this).find(".prev-arrow");
 
-        if (nextArrow.length) nextArrow.on('click', handleNext);
-        if (prevArrow.length) prevArrow.on('click', handlePrev);
-        const nav = NavSwiper(this, swiper);
-        const navPrev = NavSwiperPrev(this, swiper, nav);
-        let webGel = null;
-        if (this.classList.contains('dsn-webgl')) webGel = dsnGrid.WebGLDistortionHoverEffects({
-          imgs: webGelOption.bind(this)(),
-          ...(dsnGrid.getData(this, 'webgl', {}) || {}),
-          direction: swiper.params.direction,
-          parent: this.querySelector('.bg-container'),
-          swiper,
+            if (nextArrow.length) nextArrow.on("click", handleNext);
+            if (prevArrow.length) prevArrow.on("click", handlePrev);
+            const nav = NavSwiper(this, swiper);
+            const navPrev = NavSwiperPrev(this, swiper, nav);
+            let webGel = null;
+            if (this.classList.contains("dsn-webgl"))
+              webGel = dsnGrid.WebGLDistortionHoverEffects({
+                imgs: webGelOption.bind(this)(),
+                ...(dsnGrid.getData(this, "webgl", {}) || {}),
+                direction: swiper.params.direction,
+                parent: this.querySelector(".bg-container"),
+                swiper,
 
-          onStart({
-            parent,
-            item
-          }) {
-            parent.setAttribute('data-overlay', item.overlay);
-          }
-
-        });
-        dsnGrid.killAjax(function () {
-          if (nextArrow.length) nextArrow.off('click', handleNext);
-          if (prevArrow.length) prevArrow.off('click', handlePrev);
-          tl.kill();
-          swiper.destroy();
-          webGel.destroy();
-          if (nav) nav.destroy();
-          if (navPrev) navPrev.destroy();
-        });
-      }.bind(this));
+                onStart({ parent, item }) {
+                  parent.setAttribute("data-overlay", item.overlay);
+                },
+              });
+            dsnGrid.killAjax(function () {
+              if (nextArrow.length) nextArrow.off("click", handleNext);
+              if (prevArrow.length) prevArrow.off("click", handlePrev);
+              tl.kill();
+              swiper.destroy();
+              webGel.destroy();
+              if (nav) nav.destroy();
+              if (navPrev) navPrev.destroy();
+            });
+          }.bind(this)
+        );
     });
   }
 
   function mouseCirMove($off) {
     const $element = $("#dsn_cursor"),
-          inner = $("#dsn_cursor_inner");
-    if (dsnParam.cursor.run) $body.addClass('dsn-cursor-effect');
+      inner = $("#dsn_cursor_inner");
+    if (dsnParam.cursor.run) $body.addClass("dsn-cursor-effect");
     if (!$element.length || dsnGrid.isMobile() || !dsnParam.cursor.run) return;
-    const mouseStop = 'dsn-stop-cursor';
+    const mouseStop = "dsn-stop-cursor";
 
     if (!$off) {
       dsnGrid.mouseMove($element, {
@@ -1330,64 +1634,68 @@ const dsnParam = {
         mouseStop,
         inner: {
           el: inner,
-          speed: dsnParam.cursor.speedInner
-        }
+          speed: dsnParam.cursor.speedInner,
+        },
       });
     }
 
-    const defaultEl = $element.css(['opacity', 'width', 'height', 'borderColor', 'background']),
-          {
-      stop,
-      run
-    } = {
-      stop: () => $body.addClass(mouseStop),
-      run: () => $body.removeClass(mouseStop)
-    };
-    dsnGrid.mouseHover("a:not(> img):not(.vid) , .dsn-button-sidebar,  button , .button-load-more , [data-cursor=\"open\"]", {
-      enter: () => gsap.to($element, 0.5, {
-        width: 70,
-        height: 70,
-        opacity: 0.5,
-        backgroundColor: defaultEl.borderColor
-      }),
-      leave: () => gsap.to($element, 0.5, { ...defaultEl
-      })
-    });
-    dsnGrid.mouseHover(".c-hidden , .social-side a , .next-arrow , .prev-arrow , .dsn-btn.vid", {
-      enter() {
-        stop();
-        const {
-          x,
-          y,
-          width,
-          height
-        } = this.getBoundingClientRect();
-        gsap.to($element, 0.5, {
-          width,
-          height,
-          opacity: 0,
-          x,
-          y,
-          xPercent: 0,
-          yPercent: 0
-        });
-        gsap.to(inner, 0.1, {
-          opacity: 0
-        });
-      },
-
-      leave() {
-        run();
-        gsap.to($element, 0.5, { ...defaultEl,
-          xPercent: -50,
-          yPercent: -50
-        });
-        gsap.to(inner, 0.1, {
-          opacity: 1
-        });
+    const defaultEl = $element.css([
+        "opacity",
+        "width",
+        "height",
+        "borderColor",
+        "background",
+      ]),
+      { stop, run } = {
+        stop: () => $body.addClass(mouseStop),
+        run: () => $body.removeClass(mouseStop),
+      };
+    dsnGrid.mouseHover(
+      'a:not(> img):not(.vid) , .dsn-button-sidebar,  button , .button-load-more , [data-cursor="open"]',
+      {
+        enter: () =>
+          gsap.to($element, 0.5, {
+            width: 70,
+            height: 70,
+            opacity: 0.5,
+            backgroundColor: defaultEl.borderColor,
+          }),
+        leave: () => gsap.to($element, 0.5, { ...defaultEl }),
       }
+    );
+    dsnGrid.mouseHover(
+      ".c-hidden , .social-side a , .next-arrow , .prev-arrow , .dsn-btn.vid",
+      {
+        enter() {
+          stop();
+          const { x, y, width, height } = this.getBoundingClientRect();
+          gsap.to($element, 0.5, {
+            width,
+            height,
+            opacity: 0,
+            x,
+            y,
+            xPercent: 0,
+            yPercent: 0,
+          });
+          gsap.to(inner, 0.1, {
+            opacity: 0,
+          });
+        },
 
-    });
+        leave() {
+          run();
+          gsap.to($element, 0.5, {
+            ...defaultEl,
+            xPercent: -50,
+            yPercent: -50,
+          });
+          gsap.to(inner, 0.1, {
+            opacity: 1,
+          });
+        },
+      }
+    );
   }
 
   changeStyle();
@@ -1396,36 +1704,36 @@ const dsnParam = {
    */
 
   function changeStyle() {
-    const options = $('#dsn_box_options');
-    options.on('click', function () {
-      const isDark = $body.hasClass('v-dark'),
-            _dark = $('.v-dark'),
-            _light = $('.v-light');
+    const options = $("#dsn_box_options");
+    options.on("click", function () {
+      const isDark = $body.hasClass("v-dark"),
+        _dark = $(".v-dark"),
+        _light = $(".v-light");
 
-      $body.toggleClass('v-dark');
+      $body.toggleClass("v-dark");
 
-      _dark.removeClass('v-dark').addClass('v-light');
+      _dark.removeClass("v-dark").addClass("v-light");
 
-      _light.addClass('v-dark').removeClass('v-light');
+      _light.addClass("v-dark").removeClass("v-light");
 
       $.ajax({
         url: dsnParam.ajaxStyle,
         type: "post",
         data: {
-          color: isDark ? 'v-light' : 'v-dark',
-          style: "off"
-        }
+          color: isDark ? "v-light" : "v-dark",
+          style: "off",
+        },
       });
     });
   }
 
   function list_project($el = $(document)) {
     function changeState(_active, _remove, $product) {
-      if (_active.hasClass('active')) return false;
+      if (_active.hasClass("active")) return false;
 
-      _active.addClass('active');
+      _active.addClass("active");
 
-      _remove.removeClass('active');
+      _remove.removeClass("active");
 
       $product.fadeOut(300, function () {
         jQuery(this).toggleClass("list").fadeIn(300);
@@ -1433,36 +1741,36 @@ const dsnParam = {
       return false;
     }
 
-    $el.find('.woocommerce').each(($index, $item) => {
-      const $grid = $($item).find('.dsn_grid');
-      const $list = $($item).find('.dsn_list');
+    $el.find(".woocommerce").each(($index, $item) => {
+      const $grid = $($item).find(".dsn_grid");
+      const $list = $($item).find(".dsn_list");
       if (!$grid.length) return;
-      const $product = $($item).find('ul.dsn-shop');
-      $grid.on('click', function () {
+      const $product = $($item).find("ul.dsn-shop");
+      $grid.on("click", function () {
         return changeState($grid, $list, $product);
       });
-      $list.on('click', function () {
+      $list.on("click", function () {
         return changeState($list, $grid, $product);
       });
       dsnGrid.killAjax(() => {
-        $grid.off('click');
-        $list.off('click');
+        $grid.off("click");
+        $list.off("click");
       });
     });
   }
 
   function inputNumber($el = $(document)) {
-    $el.find('.quantity').each(function () {
+    $el.find(".quantity").each(function () {
       const $this = $(this),
-            input = $this.find('input[type="number"]'),
-            btnUp = $this.find('.quantity-up'),
-            btnDown = $this.find('.quantity-down'),
-            min = input.attr('min') || 1,
-            max = input.attr('max') || Number.MAX_VALUE;
-      btnUp.off('click');
-      btnUp.on('click', ChangeValue.bind(this, true));
-      btnDown.off('click');
-      btnDown.on('click', ChangeValue.bind(this, false));
+        input = $this.find('input[type="number"]'),
+        btnUp = $this.find(".quantity-up"),
+        btnDown = $this.find(".quantity-down"),
+        min = input.attr("min") || 1,
+        max = input.attr("max") || Number.MAX_VALUE;
+      btnUp.off("click");
+      btnUp.on("click", ChangeValue.bind(this, true));
+      btnDown.off("click");
+      btnDown.on("click", ChangeValue.bind(this, false));
 
       function ChangeValue(_is_plus) {
         const oldValue = parseFloat(input.val());
@@ -1491,7 +1799,6 @@ const dsnParam = {
    * Validation Contact form
    */
 
-
   function contactValidator() {
     const contact_form = $("#contact-form");
 
@@ -1516,7 +1823,12 @@ const dsnParam = {
             var messageAlert = "alert-" + data.type;
             var messageText = data.message; // let's compose Bootstrap alert box HTML
 
-            var alertBox = "<div class=\"alert " + messageAlert + " alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>" + messageText + "</div>"; // If we have messageAlert and messageText
+            var alertBox =
+              '<div class="alert ' +
+              messageAlert +
+              ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
+              messageText +
+              "</div>"; // If we have messageAlert and messageText
 
             if (messageAlert && messageText) {
               // inject the alert to .messages div in our form
@@ -1531,7 +1843,7 @@ const dsnParam = {
           },
           error: function (error) {
             console.log(error);
-          }
+          },
         });
         return false;
       }
@@ -1540,6 +1852,6 @@ const dsnParam = {
 })(jQuery);
 
 function sidebarOptions() {
-  document.body.classList.toggle('dsn-show-sidebar');
+  document.body.classList.toggle("dsn-show-sidebar");
 }
 //# sourceMappingURL=custom.js.map
